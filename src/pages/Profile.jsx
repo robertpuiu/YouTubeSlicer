@@ -1,8 +1,7 @@
 import { useAuth } from '../context/AuthContext';
-
+import { useNavigate } from 'react-router-dom';
 const Profile = () => {
   const { user, logout } = useAuth();
-
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
@@ -19,6 +18,13 @@ const Profile = () => {
       <p>Mail: {user && user.email}</p>
 
       <button onClick={handleLogout}>logout!</button>
+      <button
+        onClick={() => {
+          navigate('/PlaylistBuilder');
+        }}
+      >
+        Playlist Builder
+      </button>
     </div>
   );
 };
