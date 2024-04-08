@@ -2,6 +2,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 const Profile = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
