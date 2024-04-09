@@ -1,3 +1,4 @@
+import Navbar from '../components/ui/Navbar';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 const Profile = () => {
@@ -13,19 +14,22 @@ const Profile = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-4">
-      <h1>Welcome to your profile!</h1>
+    <div className="w-[100vw]">
+      <Navbar />
+      <div className="w-full mx-auto sm:max-w-[700px] flex flex-col gap-4">
+        <h1>Welcome to your profile!</h1>
 
-      <p>Mail: {user && user.email}</p>
+        <p>Mail: {user && user.email}</p>
 
-      <button onClick={handleLogout}>logout!</button>
-      <button
-        onClick={() => {
-          navigate('/PlaylistBuilder');
-        }}
-      >
-        Playlist Builder
-      </button>
+        <button onClick={handleLogout}>logout!</button>
+        <button
+          onClick={() => {
+            navigate('/PlaylistBuilder');
+          }}
+        >
+          Playlist Builder
+        </button>
+      </div>
     </div>
   );
 };
