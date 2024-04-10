@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { getYTvideoSearch } from '../assets/utils/functions/getYTvideoSearch';
 import searchVideoIcon from '../assets/svg/search-video.svg';
 import VideoCard from './ui/VideoCard';
 
-const SearchYTvideos = () => {
+const SearchYTvideos = ({ videosOfBuild, setVideosOfBuild }) => {
   const [videosOfSearch, setVideosOfSearch] = useState([]);
   const [searchParam, setSearchParam] = useState('');
   const [lastSearch, setLastSearch] = useState('');
@@ -11,8 +12,29 @@ const SearchYTvideos = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     setVideosOfSearch(await getYTvideoSearch(searchParam, 12));
-    console.log(videosOfSearch);
     setLastSearch(searchParam);
+  };
+
+  const toggleVideoInBuild = (video) => {
+    const isVideoInBuild = videosOfBuild.some(
+      (videoInBuild) => videoInBuild.videoId === video.id.videoId
+    );
+    if (!isVideoInBuild) {
+      setVideosOfBuild([
+        ...videosOfBuild,
+        {
+          videoId: video.id.videoId,
+          thumbnail: video.snippet.thumbnails.medium.url,
+          title: video.snippet.title,
+        },
+      ]);
+    } else {
+      setVideosOfBuild(
+        videosOfBuild.filter(
+          (videoInBuild) => videoInBuild.videoId !== video.id.videoId
+        )
+      );
+    }
   };
 
   return (
@@ -41,6 +63,9 @@ const SearchYTvideos = () => {
       <div className="h-screen max-h-[60vh] overflow-y-scroll w-full md:max-w-[1400px] md:justify-center sm:flex sm:flex-wrap">
         {videosOfSearch.map((video) => (
           <VideoCard
+            onClick={() => {
+              toggleVideoInBuild(video);
+            }}
             key={video.id.videoId}
             thumbnail={video.snippet.thumbnails.medium.url}
             title={video.snippet.title}
