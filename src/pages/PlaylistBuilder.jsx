@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import SearchYTvideos from '../components/SearchYTvideos';
 import Navbar from '../components/ui/Navbar';
 import VideoPlayer from '../components/ui/VideoPlayer';
+import VideoControls from '../components/ui/VideoControls';
 const PlaylistBuilder = () => {
   const [videosOfBuild, setVideosOfBuild] = useState([]);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const videoPlayerRef = useRef(null);
   return (
     <div className="w-[100vw] flex flex-col justify-start items-center">
       <Navbar />
@@ -20,6 +22,14 @@ const PlaylistBuilder = () => {
                 playlist={videosOfBuild}
                 currentVideoIndex={currentVideoIndex}
                 setCurrentVideoIndex={setCurrentVideoIndex}
+                videoPlayerRef={videoPlayerRef}
+              />
+              <VideoControls
+                videoPlayerRef={videoPlayerRef}
+                setVideosOfBuild={setVideosOfBuild}
+                videosOfBuild={videosOfBuild}
+                setCurrentVideoIndex={setCurrentVideoIndex}
+                currentVideoIndex={currentVideoIndex}
               />
             </div>
             <h3>The videos of your new Trimmed Playlist</h3>

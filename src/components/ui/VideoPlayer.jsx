@@ -1,30 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import YouTube from 'react-youtube';
 
 export default function VideoPlayer({
   playlist,
   currentVideoIndex,
   setCurrentVideoIndex,
+  videoPlayerRef,
 }) {
-  const videoPlayer = useRef(null);
-
   const onReady = (event) => {
     event.target.playVideo();
   };
 
   useEffect(() => {
     const checkTimeInterval = setInterval(async () => {
-      const player = videoPlayer.current.getInternalPlayer();
-      const playerState = await player.getPlayerState();
-      console.log('playerState', playerState);
+      const player = videoPlayerRef.current.getInternalPlayer();
       player.getCurrentTime().then((currentTime) => {
         const currentVideo = playlist[currentVideoIndex];
 
-        if (currentTime >= currentVideo?.endSeconds || playerState === 0) {
+        if (currentTime >= currentVideo?.endSeconds) {
           player.stopVideo();
-
           const nextVideoIndex = (currentVideoIndex + 1) % playlist.length;
           setCurrentVideoIndex(nextVideoIndex);
         }
@@ -48,7 +44,10 @@ export default function VideoPlayer({
       videoId={playlist[currentVideoIndex].videoId}
       opts={opts}
       onReady={onReady}
-      ref={videoPlayer}
+      ref={videoPlayerRef}
+      onEnd={() => {
+        setCurrentVideoIndex((currentVideoIndex + 1) % playlist.length);
+      }}
     />
   );
 }
