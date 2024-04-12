@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom';
 import { AuthContextProvider, useAuth } from './context/AuthContext.jsx';
 import PlaylistBuilder from './pages/PlaylistBuilder.jsx';
+import Feed from './pages/Feed.jsx';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -27,6 +28,10 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const router = createBrowserRouter([
+  {
+    path: '/Feed',
+    element: <Feed />,
+  },
   {
     path: '/PlaylistBuilder',
     element: <PlaylistBuilder />,
