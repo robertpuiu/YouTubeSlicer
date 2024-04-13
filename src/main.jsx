@@ -33,10 +33,15 @@ const router = createBrowserRouter([
     element: <Feed />,
   },
   {
-    path: '/PlaylistBuilder',
+    path: '/PlaylistBuilder/:playlistId',
     element: <PlaylistBuilder />,
   },
   {
+    path: '/PlaylistBuilder/',
+    element: <PlaylistBuilder />,
+  },
+  {
+    index: true,
     path: '/',
     element: <App />,
   },
