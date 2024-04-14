@@ -1,9 +1,18 @@
+import { useState } from 'react';
 import Navbar from '../components/ui/Navbar';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { getYTPlaylistsInfoOfGoogleAccount } from '../assets/utils//functions/getYTPlaylistsInfoOfGoogleAccount';
 const Profile = () => {
-  const { user, logout } = useAuth();
+  const [userPlaylists, setUserPlaylists] = useState([]);
+  const { user, logout, googleAccessToken } = useAuth();
   const navigate = useNavigate();
+
+  const getPlaylists = async () => {
+    const playlist = await getYTPlaylistsInfoOfGoogleAccount(googleAccessToken);
+    setUserPlaylists(playlist);
+  };
+
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
@@ -29,6 +38,26 @@ const Profile = () => {
         >
           Playlist Builder
         </button>
+        {googleAccessToken && (
+          <div>
+            <button onClick={getPlaylists}>
+              Get The Playlists from your YouTube Account
+            </button>
+            <div className="flex flex-col gap-4">
+              {userPlaylists.map((video) => (
+                <div key={video.id} className="flex flex-col">
+                  <img
+                    width={video.snippet.thumbnails.medium.width}
+                    height={video.snippet.thumbnails.medium.height}
+                    src={video.snippet.thumbnails.medium.url}
+                    alt={video.snippet.title}
+                  />
+                  <h3>{video.snippet.title}</h3>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

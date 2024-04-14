@@ -7,7 +7,7 @@ const Signin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { signin } = useAuth();
+  const { signin, signinWithGoogle } = useAuth();
   const handleSignin = async (e) => {
     e.preventDefault();
     try {
@@ -17,6 +17,15 @@ const Signin = () => {
       console.log('signin error:', error.message);
     }
     //navigate - to feed page
+  };
+  const handleSigninWithGoogle = async (e) => {
+    e.preventDefault();
+    try {
+      await signinWithGoogle();
+      navigate('/profile');
+    } catch (error) {
+      console.log('signin with google error:', error.message);
+    }
   };
   return (
     <div className="w-[100vw]">
@@ -47,6 +56,9 @@ const Signin = () => {
           />
           <button onClick={handleSignin} type="submit">
             Signin
+          </button>
+          <button onClick={handleSigninWithGoogle} type="submit">
+            Sign in with Google
           </button>
         </form>
       </div>

@@ -33,6 +33,7 @@ export default function VideoPlayer({
   const opts = {
     height: '390',
     width: '640',
+    host: 'https://www.youtube-nocookie.com',
     playerVars: {
       autoplay: 1,
       start: playlist[currentVideoIndex]?.startSeconds,
