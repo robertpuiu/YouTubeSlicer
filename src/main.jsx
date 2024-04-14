@@ -33,10 +33,6 @@ const router = createBrowserRouter([
     element: <Feed />,
   },
   {
-    path: '/PlaylistBuilder/:playlistId',
-    element: <PlaylistBuilder />,
-  },
-  {
     path: '/PlaylistBuilder/',
     element: <PlaylistBuilder />,
   },

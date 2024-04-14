@@ -5,25 +5,34 @@ import VideoPlayer from '../components/ui/VideoPlayer';
 import VideoControls from '../components/ui/VideoControls';
 import { db } from '../../firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { getPlaylistFromDB } from '../assets/utils/functions/getPlaylistFromDB';
+import { getPlaylistFromYT } from '../assets/utils/functions/getPlaylistFromYT';
+import { useAuth } from '../context/AuthContext';
 
 const PlaylistBuilder = () => {
-  // playlistId in the URL ? the playlist data will be loaded for just viewing or editing : the user will build a new playlist from scratch
-  const { playlistId } = useParams();
+  // playlistId in the URL ? the playlist data will be loaded from db or youtube for just viewing or editing : the user will build a new playlist from scratch
+  const [searchParams] = useSearchParams();
+  const playlistId = searchParams.get('playlistId');
+  const origin = searchParams.get('origin');
   const [videosOfBuild, setVideosOfBuild] = useState([]);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const videoPlayerRef = useRef(null);
   const TrimedPlaylistsCollectionRef = collection(db, 'TrimedPlaylists');
   const [playlistTitle, setPlaylistTitle] = useState('');
-
+  const { user, googleAccessToken } = useAuth();
   useEffect(() => {
     const fetchPlaylist = async () => {
-      if (playlistId) {
+      if (playlistId && origin === 'db') {
         const playlist = await getPlaylistFromDB(playlistId);
         if (playlist && playlist.playlist) {
           setVideosOfBuild(playlist.playlist);
           setPlaylistTitle(playlist.title);
+        }
+      } else if (playlistId && origin === 'yt') {
+        const playlist = await getPlaylistFromYT(playlistId, googleAccessToken); // get the playlist from youtube
+        if (playlist) {
+          setVideosOfBuild(playlist);
         }
       }
     };
@@ -36,6 +45,7 @@ const PlaylistBuilder = () => {
       const docRef = await addDoc(TrimedPlaylistsCollectionRef, {
         title: playlistTitle,
         playlist: videosOfBuild,
+        author: user.email,
       });
       console.log('Document written with ID: ', docRef.id);
     } catch (e) {

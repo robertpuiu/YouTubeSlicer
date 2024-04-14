@@ -44,15 +44,23 @@ const Profile = () => {
               Get The Playlists from your YouTube Account
             </button>
             <div className="flex flex-col gap-4">
-              {userPlaylists.map((video) => (
-                <div key={video.id} className="flex flex-col">
+              {userPlaylists.map((playlist) => (
+                <div
+                  onClick={() => {
+                    navigate(
+                      `/PlaylistBuilder?playlistId=${playlist.id}&origin=yt`
+                    );
+                  }}
+                  key={playlist.id}
+                  className="flex flex-col"
+                >
                   <img
-                    width={video.snippet.thumbnails.medium.width}
-                    height={video.snippet.thumbnails.medium.height}
-                    src={video.snippet.thumbnails.medium.url}
-                    alt={video.snippet.title}
+                    width={playlist.snippet.thumbnails.medium.width}
+                    height={playlist.snippet.thumbnails.medium.height}
+                    src={playlist.snippet.thumbnails.medium.url}
+                    alt={playlist.snippet.title}
                   />
-                  <h3>{video.snippet.title}</h3>
+                  <h3>{playlist.snippet.title}</h3>
                 </div>
               ))}
             </div>

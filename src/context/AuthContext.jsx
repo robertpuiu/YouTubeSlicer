@@ -20,10 +20,12 @@ export const AuthContextProvider = ({ children }) => {
   };
   const logout = () => {
     setGoogleAccessToken(null);
+    localStorage.removeItem('googleAccessToken');
     return signOut(auth);
   };
   const signin = (email, password) => {
     setGoogleAccessToken(null);
+    localStorage.removeItem('googleAccessToken');
     return signInWithEmailAndPassword(auth, email, password);
   };
   const signinWithGoogle = () => {
@@ -31,6 +33,7 @@ export const AuthContextProvider = ({ children }) => {
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
+        localStorage.setItem('googleAccessToken', token); //  safe af.  B-)
         setGoogleAccessToken(token);
         return result;
       })
@@ -41,8 +44,15 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
+      if (user) {
+        const token = localStorage.getItem('googleAccessToken');
+        console.log('Google Access Token:', token);
+        if (token) {
+          setGoogleAccessToken(token);
+        }
+      } else {
         setGoogleAccessToken(null);
+        localStorage.removeItem('googleAccessToken');
       }
       setUser(user);
     });
