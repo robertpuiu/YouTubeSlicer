@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Navbar from '../components/ui/Navbar';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { getYTPlaylistsInfoOfGoogleAccount } from '../assets/utils//functions/getYTPlaylistsInfoOfGoogleAccount';
@@ -17,18 +16,17 @@ const Profile = () => {
     e.preventDefault();
     try {
       await logout();
-      //navigate - to feed page
+      navigate('/');
     } catch (error) {
       console.log('logout error:', error.message);
     }
   };
   return (
-    <div className="w-[100vw]">
-      <Navbar />
+    <div className="w-[100vw] h-screen flex flex-col justify-center">
       <div className="w-full mx-auto sm:max-w-[700px] flex flex-col gap-4">
-        <h1>Welcome to your profile!</h1>
+        <h1 className="text-center">Welcome to your profile!</h1>
 
-        <p>Mail: {user && user.email}</p>
+        <p className="text-center">Mail: {user && user.email}</p>
 
         <button onClick={handleLogout}>logout!</button>
         <button
@@ -38,12 +36,19 @@ const Profile = () => {
         >
           Playlist Builder
         </button>
+        <button
+          onClick={() => {
+            navigate('/');
+          }}
+        >
+          Feed
+        </button>
         {googleAccessToken && (
-          <div>
+          <div className="w-full flex flex-col justify-center">
             <button onClick={getPlaylists}>
               Get The Playlists from your YouTube Account
             </button>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 items-center">
               {userPlaylists.map((playlist) => (
                 <div
                   onClick={() => {

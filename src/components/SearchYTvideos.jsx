@@ -38,7 +38,7 @@ const SearchYTvideos = ({ videosOfBuild, setVideosOfBuild }) => {
   };
 
   return (
-    <div className=" w-full md:max-w-[1800px]  flex flex-col justify-start items-center rounded-b-3xl overflow-hidden bg-black  bg-opacity-5  shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] ">
+    <div className=" w-full md:max-w-[1800px] mb-4 flex flex-col justify-start items-center rounded-b-3xl overflow-hidden bg-black  bg-opacity-5  shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] ">
       <div className=" flex w-full sm:max-w-[600px] rounded-b-2xl mb-2 overflow-hidden  shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         <input
           className="flex-grow p-3 w-5/6 m-0 rounded-none rounded-bl-2xl"
@@ -60,7 +60,7 @@ const SearchYTvideos = ({ videosOfBuild, setVideosOfBuild }) => {
           />
         </button>
       </div>
-      <div className="h-screen max-h-[60vh] overflow-y-scroll w-full md:max-w-[1400px] md:justify-center sm:flex sm:flex-wrap">
+      <div className="max-h-[60vh] overflow-y-scroll w-full md:max-w-[1400px] md:justify-center sm:flex sm:flex-wrap">
         {videosOfSearch.map((video) => (
           <VideoCard
             onClick={() => {

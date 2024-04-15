@@ -31,8 +31,8 @@ export default function VideoPlayer({
   }, [currentVideoIndex, playlist]);
 
   const opts = {
-    height: '390',
-    width: '640',
+    height: '100%',
+    width: '100%',
     host: 'https://www.youtube-nocookie.com',
     playerVars: {
       autoplay: 1,
@@ -49,6 +49,7 @@ export default function VideoPlayer({
       onEnd={() => {
         setCurrentVideoIndex((currentVideoIndex + 1) % playlist.length);
       }}
+      className="w-full aspect-video rounded-t-2xl overflow-hidden"
     />
   );
 }

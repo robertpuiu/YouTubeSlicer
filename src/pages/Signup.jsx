@@ -2,17 +2,16 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/ui/Navbar';
 
 const Signup = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { createUser } = useAuth();
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await createUser(username, password);
+      await createUser(email, password);
       navigate('/profile');
     } catch (error) {
       console.log('signup error: ', error.message);
@@ -20,8 +19,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="w-[100vw]">
-      <Navbar />
+    <div className="w-[100vw]  h-screen flex flex-col justify-center">
       <div className="flex flex-col items-center">
         <h1 className="p-3">Welcome to the Signup page!</h1>
         <p className="text-center m-2">
@@ -33,20 +31,22 @@ const Signup = () => {
             Login!
           </Link>
         </p>
-        <form className="w-full sm:max-w-[700px] flex flex-col gap-3 p-2 my-2">
-          <label>Username</label>
+        <form className="w-full sm:max-w-[700px] flex flex-col flex-col items-center gap-3 p-2 my-2">
+          <label>Email</label>
           <input
-            onChange={(e) => setUsername(e.target.value)}
+            className="w-1/2 p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500"
+            onChange={(e) => setEmail(e.target.value)}
             type="text"
-            name="username"
+            name="email"
           />
           <label>Password</label>
           <input
+            className="w-1/2 p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500 mb-4"
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             name="password"
           />
-          <button onClick={handleSignup} type="submit">
+          <button className="w-1/3" onClick={handleSignup} type="submit">
             Signup
           </button>
         </form>

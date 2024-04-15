@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
 import './assets/index.css';
 import Signup from './pages/Signup.jsx';
 import Profile from './pages/Profile.jsx';
@@ -29,17 +28,13 @@ const ProtectedRoute = ({ children }) => {
 
 const router = createBrowserRouter([
   {
-    path: '/Feed',
-    element: <Feed />,
-  },
-  {
     path: '/PlaylistBuilder/',
     element: <PlaylistBuilder />,
   },
   {
     index: true,
     path: '/',
-    element: <App />,
+    element: <Feed />,
   },
   {
     path: '/signup',
@@ -47,7 +42,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/profile',
-    element: <Profile />,
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/signin',
