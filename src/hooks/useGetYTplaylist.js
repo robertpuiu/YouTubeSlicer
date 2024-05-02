@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { YOUTUBE_PLAYLIST_ITEMS_API } from '../assets/utils/variables';
+import { YOUTUBE_PLAYLIST_ITEMS_API } from '../assets/utils/constants';
 
 const useGetYTplaylist = (playlistId, maxResults = 12) => {
   const [videosOfPlaylist, setVideosOfPlaylist] = useState([]);

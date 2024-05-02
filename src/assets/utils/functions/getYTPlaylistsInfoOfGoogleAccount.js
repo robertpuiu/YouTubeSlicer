@@ -1,4 +1,4 @@
-import { YOUTUBE_PLAYLISTS_API } from '../variables';
+import { YOUTUBE_PLAYLISTS_API } from '../constants';
 export async function getYTPlaylistsInfoOfGoogleAccount(accessToken) {
   try {
     const response = await fetch(

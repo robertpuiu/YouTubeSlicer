@@ -25,7 +25,6 @@ const VideoControls = ({
       title: deboundedCutName,
     };
     setVideosOfBuild(newVideosOfBuild);
-    console.log(deboundedCutName);
   }, [deboundedCutName]);
 
   useEffect(() => {
@@ -40,7 +39,6 @@ const VideoControls = ({
   }, [currentVideoIndex, videosOfBuild]);
 
   const setStartAndEndTimes = async () => {
-    console.log(checkifTimeIsValid());
     if (!checkifTimeIsValid()) return;
     const newVideosOfBuild = [...videosOfBuild];
     newVideosOfBuild[currentVideoIndex] = {
@@ -54,7 +52,6 @@ const VideoControls = ({
   const checkifTimeIsValid = () => {
     const startTime = startMinute * 60 + startSecond;
     const endTime = endMinute * 60 + endSecond;
-    console.log(videoDuration);
     if (
       startTime > endTime ||
       startTime > videoDuration ||

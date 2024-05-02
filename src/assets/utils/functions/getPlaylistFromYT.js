@@ -1,4 +1,4 @@
-import { YOUTUBE_PLAYLIST_ITEMS_API } from '../variables';
+import { YOUTUBE_PLAYLIST_ITEMS_API } from '../constants';
 
 export const getPlaylistFromYT = async (
   playlistId,

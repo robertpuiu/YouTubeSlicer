@@ -46,7 +46,6 @@ export const AuthContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const token = localStorage.getItem('googleAccessToken');
-        console.log('Google Access Token:', token);
         if (token) {
           setGoogleAccessToken(token);
         }

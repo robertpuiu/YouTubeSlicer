@@ -18,7 +18,6 @@ const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (user === null) {
-      console.log(user);
       navigate('/signin', { replace: true });
     }
   }, [user, navigate]);

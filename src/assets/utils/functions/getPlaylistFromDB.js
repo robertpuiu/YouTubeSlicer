@@ -8,7 +8,6 @@ export const getPlaylistFromDB = async (docId) => {
     const playlistSnapshot = await getDoc(playlistDocRef);
 
     if (playlistSnapshot.exists()) {
-      console.log('Playlist data:', playlistSnapshot.data());
       return playlistSnapshot.data();
     } else {
       console.log('~~No playlist for provided Id~~');

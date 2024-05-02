@@ -1,4 +1,4 @@
-import { YOUTUBE_SEARCH_API } from '../variables';
+import { YOUTUBE_SEARCH_API } from '../constants';
 
 export const getYTvideoSearch = async (searchParam, maxResults = 5) => {
   try {

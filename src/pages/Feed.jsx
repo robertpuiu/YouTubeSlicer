@@ -18,7 +18,6 @@ const Feed = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log(playlists);
       setTrimmedPlaylistsFromDB(playlists);
       setFilteredPlaylists(playlists);
     } catch (e) {
