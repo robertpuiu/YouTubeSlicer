@@ -1,4 +1,4 @@
-import { useFeed } from './hooks.ts';
+import { useFeed } from './hooks.js';
 
 const Feed = () => {
 	const { filteredPlaylists, setSearchParam, navigate } =
